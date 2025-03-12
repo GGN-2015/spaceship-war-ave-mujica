@@ -577,10 +577,10 @@
         
         // 键盘事件监听
         window.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowLeft' || e.key === 'Left') keys.left = true;
-            if (e.key === 'ArrowRight' || e.key === 'Right') keys.right = true;
-            if (e.key === 'ArrowUp' || e.key === 'Up') keys.up = true;
-            if (e.key === 'ArrowDown' || e.key === 'Down') keys.down = true;
+            if (e.key === 'ArrowLeft' || e.key === 'Left' || e.key === 'a' || e.key === 'A') keys.left = true;
+            if (e.key === 'ArrowRight' || e.key === 'Right' || e.key === 'd' || e.key === 'D') keys.right = true;
+            if (e.key === 'ArrowUp' || e.key === 'Up' || e.key === 'w' || e.key === 'W') keys.up = true;
+            if (e.key === 'ArrowDown' || e.key === 'Down' || e.key === 's' || e.key === 'S') keys.down = true;
             
             if(['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
                 e.preventDefault();
@@ -588,10 +588,10 @@
         });
         
         window.addEventListener('keyup', function(e) {
-            if (e.key === 'ArrowLeft' || e.key === 'Left') keys.left = false;
-            if (e.key === 'ArrowRight' || e.key === 'Right') keys.right = false;
-            if (e.key === 'ArrowUp' || e.key === 'Up') keys.up = false;
-            if (e.key === 'ArrowDown' || e.key === 'Down') keys.down = false;
+            if (e.key === 'ArrowLeft' || e.key === 'Left' || e.key === 'a' || e.key === 'A') keys.left = false;
+            if (e.key === 'ArrowRight' || e.key === 'Right' || e.key === 'd' || e.key === 'D') keys.right = false;
+            if (e.key === 'ArrowUp' || e.key === 'Up' || e.key === 'w' || e.key === 'W') keys.up = false;
+            if (e.key === 'ArrowDown' || e.key === 'Down' || e.key === 's' || e.key === 'S') keys.down = false;
         });
         
         // 重新开始按钮事件
