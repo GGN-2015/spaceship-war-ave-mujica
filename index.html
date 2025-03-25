@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>飞机大战</title>
+    <title>祥子🐘大战</title>
     <style>
         body {
             margin: 0;
@@ -526,10 +526,10 @@
         
         // 玩家对象
         const player = {
-            x: canvas.width / 2 - 25,
-            y: canvas.height - 80,
-            width: 50,
-            height: 50,
+            x: canvas.width / 2 - 37,
+            y: canvas.height - 105,
+            width: 75,
+            height: 75,
             speedX: 5,
             speedY: 4,  // 上下移动速度
             isAlive: true,
@@ -609,6 +609,33 @@
             for (let i = player.lives; i < player.maxLives; i++) {
                 lifeDisplayElement.innerHTML += '🖤';
             }
+        }
+
+        // 绘制心形子弹的函数
+        function drawHeartBullet(bullet) {
+            ctx.fillStyle = bullet.color;
+            ctx.beginPath();
+            const x = bullet.x + bullet.width / 2;
+            const y = bullet.y + bullet.height / 2;
+            const size = bullet.width / 2;
+            ctx.moveTo(x, y);
+            ctx.bezierCurveTo(
+                x + size / 2,
+                y - size,
+                x + size * 2,
+                y + size / 3,
+                x,
+                y + size
+            );
+            ctx.bezierCurveTo(
+                x - size * 2,
+                y + size / 3,
+                x - size / 2,
+                y - size,
+                x,
+                y
+            );
+            ctx.fill();
         }
         
         // 更新波次进度条
@@ -1482,7 +1509,20 @@
                 ctx.fillText(bossType.name, enemy.x + enemy.width/2 - textWidth/2, enemy.y - 20);
             }
         }
+
+        const playerImage = new Image(); // 加载玩家图片
+        playerImage.src = "./img/togawa.jpeg";
         
+        function drawPlayer(playerX, playerY, playerWidth, playerHeight) { // 新的玩家绘制方法
+            if (playerImage.complete) {
+                ctx.drawImage(playerImage, playerX, playerY, playerWidth, playerHeight);
+            } else {
+                // 如果图片未加载完成，使用原来的颜色绘制
+                ctx.fillStyle = colors.player;
+                ctx.fillRect(playerX, playerY, playerWidth, playerHeight);
+            }
+        }
+
         // 更新玩家
         function updatePlayer() {
             // 处理无敌时间
@@ -1525,9 +1565,12 @@
                 ctx.fillStyle = player.invincible ? colors.playerDamaged : colors.player;
                 ctx.fillRect(-player.width/2, -player.height/2, player.width, player.height);
                 
+                drawPlayer(-player.width/2, -player.height/2, player.width, player.height);
+                
                 // 飞机细节
                 ctx.fillStyle = '#fff';
                 ctx.fillRect(-2, -player.height/2 - 5, 4, 5);
+
                 ctx.restore();
             }
         }
@@ -1556,9 +1599,10 @@
                 
                 // 绘制子弹
                 ctx.fillStyle = bullet.color;
-                ctx.beginPath();
-                ctx.arc(bullet.x + bullet.width/2, bullet.y + bullet.height/2, bullet.width/2, 0, Math.PI * 2);
-                ctx.fill();
+                // ctx.beginPath();
+                // ctx.arc(bullet.x + bullet.width/2, bullet.y + bullet.height/2, bullet.width/2, 0, Math.PI * 2);
+                // ctx.fill();
+                drawHeartBullet(bullet);
                 
                 // 检测与玩家的碰撞
                 if (checkCollision(bullet, player) && !player.invincible) {
